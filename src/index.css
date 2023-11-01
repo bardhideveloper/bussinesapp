@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.toast-container-custom {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
