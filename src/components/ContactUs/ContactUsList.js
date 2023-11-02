@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageEditForm from './MessageEditForm';
 import Footer from '../Footer/Footer'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function ContactUsList() {
 
@@ -70,6 +72,27 @@ function ContactUsList() {
     setCurrentPage(pageNumber);
   };
 
+  const saveAsPDF = () => {
+    const doc = new jsPDF();
+    const rows = [];
+    currentMessage.forEach((message) => {
+      rows.push([message.id, message.name, message.email, message.message]);
+    });
+
+    const columnWidths = { 0: 10, 1: 40, 2: 60, 3: 10 };
+    const fontSize = 10;
+
+    doc.autoTable({
+      head: [['ID', 'Name', 'Email', 'Message']],
+      body: rows,
+      columnStyles: columnWidths,
+      margin: { top: 20 },
+      styles: { fontSize: fontSize },
+    });
+
+    doc.save('message-list.pdf');
+  };
+
   return (
 
     <div>
@@ -83,7 +106,7 @@ function ContactUsList() {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-
+      <button className="btn btn-primary mb-3 shadow-sm" onClick={saveAsPDF}>Save as PDF</button>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -156,7 +179,7 @@ function ContactUsList() {
           <button className="page-link" onClick={() => paginate(currentPage + 1)}>Next</button>
         </li>
       </ul>
-      <Footer/>
+      <Footer />
     </div>
   )
 

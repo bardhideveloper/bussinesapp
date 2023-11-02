@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import OrderEditForm from './OrderEditForm';
 import Footer from '../Footer/Footer'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function OrdersList() {
   const [orders, setOrders] = useState([]);
@@ -89,6 +91,31 @@ function OrdersList() {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
+
+  const saveAsPDF = () => {
+    const doc = new jsPDF();
+  
+
+    const rows = [];
+    currentOrders.forEach((order) => {
+      rows.push([order.id, order.createdAt, order.total_cost,orderId[order.user_id]]);
+    });
+  
+    const columnWidths = {0: 10,1: 40, 2: 60};
+  
+    const fontSize = 10;
+  
+    doc.autoTable({
+      head: [['ID', 'Date', 'Total Cost','User']],
+      body: rows,
+      columnStyles: columnWidths,
+      margin: { top: 20 }, 
+      styles: { fontSize: fontSize },
+    });
+
+    doc.save('order-list.pdf');
+  };
+
   return (
     <div>
       <h2 className="mt-4 mb-4 display-6">Orders</h2>
@@ -101,7 +128,7 @@ function OrdersList() {
           onChange={(e) => setFilteredDate(e.target.value)}
         />
       </div>
-
+      <button className="btn btn-primary mb-3 shadow-sm" onClick={saveAsPDF}>Save as PDF</button>
       <table className="table table-hover">
         <thead>
           <tr>

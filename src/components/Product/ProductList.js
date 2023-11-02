@@ -3,6 +3,8 @@ import axios from 'axios';
 import ProductForm from './ProductForm';
 import ProductEditForm from './ProductEditForm';
 import Footer from '../Footer/Footer'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -84,6 +86,30 @@ function ProductList() {
     setCurrentPage(pageNumber);
   };
 
+  const saveAsPDF = () => {
+    const doc = new jsPDF();
+  
+
+    const rows = [];
+    currentProducts.forEach((product) => {
+      rows.push([product.id, product.name, product.description, product.price, product.stock]);
+    });
+  
+    const columnWidths = {0: 10,1: 40, 2: 60, 3: 10, 4: 60};
+  
+    const fontSize = 10;
+  
+    doc.autoTable({
+      head: [['ID', 'Name', 'Description', 'Price', 'Stock']],
+      body: rows,
+      columnStyles: columnWidths,
+      margin: { top: 20 }, 
+      styles: { fontSize: fontSize },
+    });
+
+    doc.save('product-list.pdf');
+  };
+
   return (
     <div>
       <h2 className="mt-4 mb-4 display-6">Products</h2>
@@ -98,6 +124,7 @@ function ProductList() {
       </div>
 
       <button className="btn btn-success mb-3 shadow-sm" onClick={handleShowAddProductModal}>Add New Product</button>
+      <button className="btn btn-primary mb-3 ms-2 shadow-sm" onClick={saveAsPDF}>Save as PDF</button>
       <table className="table table-hover">
         <thead>
           <tr>

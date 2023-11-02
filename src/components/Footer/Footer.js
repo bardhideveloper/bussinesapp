@@ -12,7 +12,7 @@ function Footer() {
     <footer style={footerStyle}>
       <div className="container">
         <p className="text-center">
-          &copy; {new Date().getFullYear()} Your App Name. All rights reserved.
+          &copy; {new Date().getFullYear()} Bussines App. All rights reserved.
         </p>
       </div>
     </footer>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import Footer from '../Footer/Footer'
 
 function Dashboard() {
@@ -228,10 +230,31 @@ function Dashboard() {
       });
 
   }, []);
+
+  const saveAsPDF = () => {
+    const doc = new jsPDF();
+    const data = [
+      ['Category', 'Total', 'Added Today', 'Updated Today'],
+      ['Users', userCount, usersAddedToday, usersUpdatedToday],
+      ['Products', productCount, productsAddedToday, productsUpdatedToday],
+      ['Orders', orderCount, ordersAddedToday, ordersUpdatedToday],
+      ['Messages', messageCount, messagesAddedToday, messagesUpdatedToday],
+    ];
+
+    doc.autoTable({
+      head: [data[0]],
+      body: data.slice(1),
+    });
+
+    // Save the PDF
+    doc.save('dashboard.pdf');
+  };
+
   return (
     <div className="container-fluid mt-5 ">
       <h2 className="display-4">Welcome to Admin Dashboard</h2>
       <p className='lead'>We're excited to have you on board. Explore our admin panel and discover everything we have for this application.</p>
+      <button className="btn btn-primary mb-3" onClick={saveAsPDF}>Save as PDF</button>  
       <div className='row'>
         <div className='col-md-3'>
           <h4 className='mt-4 mb-4'>User Information</h4>

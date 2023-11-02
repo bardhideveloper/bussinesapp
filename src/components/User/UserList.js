@@ -3,6 +3,8 @@ import axios from 'axios';
 import UserForm from './UserForm';
 import UserEditForm from './UserEditForm';
 import Footer from '../Footer/Footer'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function UserList() {
   const [users, setUsers] = useState([]);
@@ -100,6 +102,28 @@ function UserList() {
     setCurrentPage(pageNumber);
   };
 
+  const saveAsPDF = () => {
+    const doc = new jsPDF();
+    const rows = [];
+
+    currentUsers.forEach((user) => {
+      rows.push([user.id, user.name, user.email, user.age, user.address, user.password, userRoles[user.userRoleId]]);
+    });
+
+    const columnWidths = { 0: 10, 1: 40, 2: 60, 3: 10, 4: 60, 5: 40, 6: 40, };
+    const fontSize = 10;
+    
+    doc.autoTable({
+      head: [['ID', 'Name', 'Email', 'Age', 'Address', 'Password', 'Role']],
+      body: rows,
+      columnStyles: columnWidths,
+      margin: { top: 20 },
+      styles: { fontSize: fontSize },
+    });
+
+    doc.save('user-list.pdf');
+  };
+
   return (
     <div>
       <h2 className="mt-4 mb-4 display-6">Users</h2>
@@ -114,6 +138,7 @@ function UserList() {
       </div>
 
       <button className="btn btn-success mb-3 shadow-sm" onClick={handleShowAddUserModal}>Add New User</button>
+      <button className="btn btn-primary mb-3 ms-2 shadow-sm" onClick={saveAsPDF}>Save as PDF</button>
       <table className="table table-hover">
         <thead>
           <tr>
@@ -219,7 +244,7 @@ function UserList() {
           <button className="page-link" onClick={() => paginate(currentPage + 1)}>Next</button>
         </li>
       </ul>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
