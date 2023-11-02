@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 
@@ -18,11 +17,11 @@ import Footer from './components/Footer/Footer';
 function App() {
   const initialUserRole = localStorage.getItem('userRole') || 3;
   const [userRole, setUserRole] = useState();
-  
-  
+
+
   useEffect(() => {
     localStorage.setItem('userRole', userRole);
-  },[userRole]);
+  }, [userRole]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -55,7 +54,7 @@ function App() {
                 <li className="nav-item">
                   <Link className="nav-link" to="/dashboardUser" onClick={handleLogout}>📴 Logout</Link>
                 </li>
-                
+
               </>
             )}
 
@@ -97,8 +96,8 @@ function App() {
         </nav>
 
         <Routes>
-          
-          <Route path="/" element={<Navigate to="/loginform" />} />
+
+          <Route path="/" element={<Navigate to={userRole === 1 ? '/adminPanel/dashboard' : (userRole === 2 ? '/userPanel/dashboardUser' : '/dashboardUser')} />} />
           <Route path="/loginform" element={<LoginForm setUserRole={setUserRole} />} />
 
           {userRole === 1 && (
@@ -108,7 +107,7 @@ function App() {
               <Route path="orders" element={<OrdersList />} />
               <Route path="products" element={<ProductList />} />
               <Route path="contactus" element={<ContactUsList />} />
-              <Route path="footer" element={<Footer/>}/>
+              <Route path="footer" element={<Footer />} />
             </Route>
           )}
 
@@ -123,7 +122,7 @@ function App() {
           <Route path="/registrationform" element={<RegistrationForm />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contactUs" element={<ContactUs />} />
-          <Route path="footer" element={<Footer/>}/>
+          <Route path="footer" element={<Footer />} />
         </Routes>
       </div>
     </Router>
