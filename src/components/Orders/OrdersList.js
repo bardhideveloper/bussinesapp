@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { all } from 'axios';
 import OrderEditForm from './OrderEditForm';
 import Footer from '../Footer/Footer'
 import jsPDF from 'jspdf';
@@ -26,6 +26,21 @@ function OrdersList() {
       }
     } catch (error) {
       console.error('Error fetching user id:', error);
+    }
+  };
+
+  const getAllOrders = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/orders');
+      if (response.data && Array.isArray(response.data)) {
+        return response.data;
+      } else {
+        console.error('Invalid response data:', response.data);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return [];
     }
   };
 
@@ -92,12 +107,13 @@ function OrdersList() {
     setCurrentPage(pageNumber);
   };
 
-  const saveAsPDF = () => {
+  const saveAsPDF = async () => {
     const doc = new jsPDF();
-  
+    const allOrders = await getAllOrders();
+    const rowCount = allOrders.length;
 
     const rows = [];
-    currentOrders.forEach((order) => {
+    allOrders.forEach((order) => {
       rows.push([order.id, order.createdAt, order.total_cost,orderId[order.user_id]]);
     });
   
@@ -113,6 +129,9 @@ function OrdersList() {
       styles: { fontSize: fontSize },
     });
 
+    const smallTextSize = 8;
+    doc.setFontSize(smallTextSize);
+    doc.text(`Number of Rows: ${rowCount}`, 10, doc.autoTable.previous.finalY + 10);
     doc.save('order-list.pdf');
   };
 

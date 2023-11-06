@@ -19,21 +19,23 @@ function ProductList() {
     setProducts((prevProducts) => [newProduct, ...prevProducts]);
   };
 
+  const getAllProducts = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/products');
+      if (response.data && Array.isArray(response.data)) {
+        return response.data;
+      } else {
+        console.error('Invalid response data:', response.data);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return [];
+    }
+  };
+
   useEffect(() => {
-    const apiUrl = 'http://localhost:3000/api/products';
-
-    axios.get(apiUrl)
-      .then((response) => {
-        if (response.data && Array.isArray(response.data)) {
-          setProducts(response.data);
-        } else {
-          console.error('Invalid response data:', response.data);
-        }
-
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+    getAllProducts().then((data) => setProducts(data));
   }, []);
 
   const handleDeleteProduct = (productId) => {
@@ -86,27 +88,31 @@ function ProductList() {
     setCurrentPage(pageNumber);
   };
 
-  const saveAsPDF = () => {
+  const saveAsPDF = async () => {
+    const allProducts = await getAllProducts();
+    const rowCount = allProducts.length;
     const doc = new jsPDF();
-  
+
 
     const rows = [];
-    currentProducts.forEach((product) => {
+    allProducts.forEach((product) => {
       rows.push([product.id, product.name, product.description, product.price, product.stock]);
     });
-  
-    const columnWidths = {0: 10,1: 40, 2: 60, 3: 10, 4: 60};
-  
+
+    const columnWidths = { 0: 10, 1: 40, 2: 60, 3: 10, 4: 60 };
+
     const fontSize = 10;
-  
+
     doc.autoTable({
       head: [['ID', 'Name', 'Description', 'Price', 'Stock']],
       body: rows,
       columnStyles: columnWidths,
-      margin: { top: 20 }, 
+      margin: { top: 20 },
       styles: { fontSize: fontSize },
     });
-
+    const smallTextSize = 8;
+    doc.setFontSize(smallTextSize);
+    doc.text(`Number of Rows: ${rowCount}`, 10, doc.autoTable.previous.finalY + 10);
     doc.save('product-list.pdf');
   };
 
@@ -228,7 +234,7 @@ function ProductList() {
           <button className="page-link" onClick={() => paginate(currentPage + 1)}>Next</button>
         </li>
       </ul>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

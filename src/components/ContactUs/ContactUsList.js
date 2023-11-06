@@ -14,6 +14,21 @@ function ContactUsList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [perPage, setPerPage] = useState(5);
 
+  const getAllContactMessages = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/contactus');
+      if (response.data && Array.isArray(response.data)) {
+        return response.data;
+      } else {
+        console.error('Invalid response data:', response.data);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return [];
+    }
+  };
+
   useEffect(() => {
     const apiUrl = 'http://localhost:3000/api/contactus';
 
@@ -72,10 +87,12 @@ function ContactUsList() {
     setCurrentPage(pageNumber);
   };
 
-  const saveAsPDF = () => {
+  const saveAsPDF = async () => {
     const doc = new jsPDF();
+    const allContactMessages = await getAllContactMessages();
+    const rowCount = allContactMessages.length;
     const rows = [];
-    currentMessage.forEach((message) => {
+    allContactMessages.forEach((message) => {
       rows.push([message.id, message.name, message.email, message.message]);
     });
 
@@ -90,6 +107,9 @@ function ContactUsList() {
       styles: { fontSize: fontSize },
     });
 
+    const smallTextSize = 8;
+    doc.setFontSize(smallTextSize);
+    doc.text(`Number of Rows: ${rowCount}`, 10, doc.autoTable.previous.finalY + 10);
     doc.save('message-list.pdf');
   };
 

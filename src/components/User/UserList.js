@@ -35,6 +35,21 @@ function UserList() {
     }
   };
 
+  const getAllUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/users');
+      if (response.data && Array.isArray(response.data)) {
+        return response.data;
+      } else {
+        console.error('Invalid response data:', response.data);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return [];
+    }
+  };
+
   useEffect(() => {
     const apiUrl = 'http://localhost:3000/api/users';
 
@@ -102,17 +117,19 @@ function UserList() {
     setCurrentPage(pageNumber);
   };
 
-  const saveAsPDF = () => {
+  const saveAsPDF = async () => {
     const doc = new jsPDF();
+    const allUsers = await getAllUsers();
+    const rowCount = allUsers.length;
     const rows = [];
 
-    currentUsers.forEach((user) => {
-      rows.push([user.id, user.name, user.email, user.age, user.address,userRoles[user.userRoleId]]);
+    allUsers.forEach((user) => {
+      rows.push([user.id, user.name, user.email, user.age, user.address, userRoles[user.userRoleId]]);
     });
 
-    const columnWidths = { 0: 10, 1: 40, 2: 60, 3: 10, 4: 60,6: 40, };
+    const columnWidths = { 0: 10, 1: 40, 2: 60, 3: 10, 4: 60, 6: 40, };
     const fontSize = 10;
-    
+
     doc.autoTable({
       head: [['ID', 'Name', 'Email', 'Age', 'Address', 'Role']],
       body: rows,
@@ -121,6 +138,9 @@ function UserList() {
       styles: { fontSize: fontSize },
     });
 
+    const smallTextSize = 8;
+    doc.setFontSize(smallTextSize);
+    doc.text(`Number of Rows: ${rowCount}`, 10, doc.autoTable.previous.finalY + 10);
     doc.save('user-list.pdf');
   };
 
