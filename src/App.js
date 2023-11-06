@@ -14,15 +14,22 @@ import DashboardUser from './components/Dashboard/DashboardUser';
 import ContactUsList from './components/ContactUs/ContactUsList';
 import Footer from './components/Footer/Footer';
 
-function App() {
-  const initialUserRole = localStorage.getItem('userRole') || 3;
-  const [userRole, setUserRole] = useState();
 
+function App() {
+
+  const userData = JSON.parse(localStorage.getItem('user'));
+  const initialUserRole = userData ? userData.role : 3;
+
+  const [userRole, setUserRole] = useState(initialUserRole);
+  //console.log('USER ROLE' , userRole)
 
   useEffect(() => {
-    localStorage.setItem('userRole', userRole);
-  }, [userRole]);
-
+    const storedUserRole = localStorage.getItem('userRole');
+    if (storedUserRole) {
+      setUserRole(parseInt(storedUserRole, 10));
+    }
+  }, []);
+  
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');

@@ -36,11 +36,14 @@ function LoginForm({ setUserRole }) {
 
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
+        
 
 
         if (user && user.role !== undefined) {
           const userRole = user.role;
+          //console.log('userRole before setting in localStorage:', userRole); 
           setUserRole(userRole);
+          //console.log('The user role:' , userRole)
 
           navigate('/');
         } else {
