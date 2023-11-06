@@ -107,14 +107,14 @@ function UserList() {
     const rows = [];
 
     currentUsers.forEach((user) => {
-      rows.push([user.id, user.name, user.email, user.age, user.address, user.password, userRoles[user.userRoleId]]);
+      rows.push([user.id, user.name, user.email, user.age, user.address,userRoles[user.userRoleId]]);
     });
 
-    const columnWidths = { 0: 10, 1: 40, 2: 60, 3: 10, 4: 60, 5: 40, 6: 40, };
+    const columnWidths = { 0: 10, 1: 40, 2: 60, 3: 10, 4: 60,6: 40, };
     const fontSize = 10;
     
     doc.autoTable({
-      head: [['ID', 'Name', 'Email', 'Age', 'Address', 'Password', 'Role']],
+      head: [['ID', 'Name', 'Email', 'Age', 'Address', 'Role']],
       body: rows,
       columnStyles: columnWidths,
       margin: { top: 20 },
