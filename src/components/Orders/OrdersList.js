@@ -114,7 +114,7 @@ function OrdersList() {
 
     const rows = [];
     allOrders.forEach((order) => {
-      rows.push([order.id, order.createdAt, order.total_cost,orderId[order.user_id]]);
+      rows.push([order.id, order.createdAt, order.total_cost,order.address,orderId[order.user_id]]);
     });
   
     const columnWidths = {0: 10,1: 40, 2: 60};
@@ -122,7 +122,7 @@ function OrdersList() {
     const fontSize = 10;
   
     doc.autoTable({
-      head: [['ID', 'Date', 'Total Cost','User']],
+      head: [['ID', 'Date', 'Total Cost','Address','User']],
       body: rows,
       columnStyles: columnWidths,
       margin: { top: 20 }, 
@@ -154,6 +154,7 @@ function OrdersList() {
             <th>ID</th>
             <th>Date</th>
             <th>Total Cost</th>
+            <th>Address</th>
             <th>Username</th>
             <th>Actions</th>
           </tr>
@@ -164,6 +165,7 @@ function OrdersList() {
               <td>{order.id}</td>
               <td>{order.createdAt ? new Date(order.createdAt).toLocaleDateString() : 'Invalid Date'}</td>
               <td>{order.total_cost}</td>
+              <td>{order.address}</td>
               <td>{orderId[order.user_id]}</td>
               <td>
                 <button className="btn btn-primary me-3 shadow-sm" onClick={() => handleEditOrder(order.id)}><i className="fas fa-edit"></i></button>

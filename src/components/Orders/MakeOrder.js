@@ -6,6 +6,7 @@ function MakeOrder({ user }) {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [orderTotal, setOrderTotal] = useState(0);
+  const [address, setAddress] = useState('');
   const [addOrderStatus, setAddOrderStatus] = useState(null);
   const [stockStatus, setAddStockStatus] = useState(null);
 
@@ -22,11 +23,11 @@ function MakeOrder({ user }) {
   const updateOrderTotal = () => {
     const newTotal = selectedProducts.reduce((total, product) => total + product.total_price, 0);
     setOrderTotal(newTotal);
-  };  
+  };
 
   const handleProductSelection = (product) => {
     const existingProduct = selectedProducts.find((p) => p.product_id === product.id);
-  
+
     if (existingProduct) {
       if (existingProduct.quantity < product.stock) {
         existingProduct.quantity += 1;
@@ -85,9 +86,17 @@ function MakeOrder({ user }) {
   };
 
   const handleOrderPlacement = () => {
+
+    if (orderTotal === 0 || address.trim() === '') {
+      // Show an error message or handle the case where the total cost is 0 or the address is not filled
+      setAddOrderStatus('error');
+      return;
+    }
+    
     const orderData = {
       user_id: user.id,
       products: selectedProducts,
+      address: address,
     };
 
     //console.log(user.id);
@@ -110,7 +119,8 @@ function MakeOrder({ user }) {
       return <div className="alert alert-success mt-3">You have ordered successfully!</div>;
     } else if (addOrderStatus === 'error') {
       return <div className="alert alert-danger mt-3">You can't order now. Please try again.</div>;
-    } else {
+    } 
+    else {
       return null;
     }
   };
@@ -124,11 +134,11 @@ function MakeOrder({ user }) {
     }
   }, [addOrderStatus]);
 
-  const renderStockMessage  = () => {
-    if(stockStatus === 'error'){
+  const renderStockMessage = () => {
+    if (stockStatus === 'error') {
       return <div className='alert alert-danger mt-3'>Not enough stock available for this product.</div>
     }
-    else if(stockStatus ==='errorOutOfStock'){
+    else if (stockStatus === 'errorOutOfStock') {
       return <div className='alert alert-danger mt-3'>This product is out of stock.</div>
     } else {
       return null;
@@ -172,6 +182,19 @@ function MakeOrder({ user }) {
         </div>
         <div className='col-md-6'>
           <h3 className='mt-4 mb-4'>Your Order</h3>
+
+          <input
+            type="text"
+            className="form-control"
+            required
+            name="address"
+            placeholder="Address"
+            style={{ maxWidth: '50%' }}
+            value={address}
+            onChange={(e) => {
+              setAddress(e.target.value); 
+            }}
+          />
           <table className='table table-hover'>
             <thead>
               <tr>
@@ -218,7 +241,7 @@ function MakeOrder({ user }) {
           {renderStockMessage()}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
 
   );
