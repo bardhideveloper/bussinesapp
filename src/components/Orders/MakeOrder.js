@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Footer from '../Footer/Footer'
 
-function MakeOrder() {
+function MakeOrder({ user }) {
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-  const [user_id, setUser_id] = useState(81);
   const [orderTotal, setOrderTotal] = useState(0);
   const [addOrderStatus, setAddOrderStatus] = useState(null);
   const [stockStatus, setAddStockStatus] = useState(null);
@@ -87,9 +86,12 @@ function MakeOrder() {
 
   const handleOrderPlacement = () => {
     const orderData = {
-      user_id,
+      user_id: user.id,
       products: selectedProducts,
     };
+
+    //console.log(user.id);
+
 
     axios.post('http://localhost:3000/api/orderitems', orderData)
       .then((response) => {

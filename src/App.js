@@ -19,6 +19,7 @@ function App() {
 
   const userData = JSON.parse(localStorage.getItem('user'));
   const initialUserRole = userData ? userData.role : 3;
+  const [user, setUser] = useState(null);
 
   const [userRole, setUserRole] = useState(initialUserRole);
   //console.log('USER ROLE' , userRole)
@@ -105,7 +106,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={<Navigate to={userRole === 1 ? '/adminPanel/dashboard' : (userRole === 2 ? '/userPanel/dashboardUser' : '/dashboardUser')} />} />
-          <Route path="/loginform" element={<LoginForm setUserRole={setUserRole} />} />
+          <Route path="/loginform" element={<LoginForm setUserRole={setUserRole} setUser={setUser} />} />
 
           {userRole === 1 && (
             <Route path="/adminPanel/*">
@@ -125,7 +126,7 @@ function App() {
           )}
 
           <Route path="dashboardUser" element={<DashboardUser />} />
-          <Route path="/order-items" element={<MakeOrder />} />
+          <Route path="/order-items" element={<MakeOrder user={user} />} />
           <Route path="/registrationform" element={<RegistrationForm />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contactUs" element={<ContactUs />} />

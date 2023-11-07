@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from  '../Footer/Footer'
 
-function LoginForm({ setUserRole }) {
+function LoginForm({ setUserRole,setUser }) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -44,6 +44,8 @@ function LoginForm({ setUserRole }) {
           //console.log('userRole before setting in localStorage:', userRole); 
           setUserRole(userRole);
           //console.log('The user role:' , userRole)
+
+          setUser(user);
 
           navigate('/');
         } else {
