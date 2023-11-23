@@ -91,6 +91,12 @@ function App() {
                   <Link className="nav-link" to="/dashboardUser">🏠 Dashboard</Link>
                 </li>
                 <li className="nav-item">
+                  <Link className="nav-link" to="/contactUs">📞 Contact Us</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/aboutUs">ℹ️ About Us</Link>
+                </li>
+                <li className="nav-item">
                   <Link className="nav-link" to="/registrationform">📝 Register</Link>
                 </li>
                 <li className="nav-item">

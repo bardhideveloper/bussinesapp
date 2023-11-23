@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import "./registerForm.scss";
+import { Navigate } from "react-router-dom";
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({ name: '', email: '', password: '', age: '', address: '', userRoleId: 2 });
@@ -41,6 +42,7 @@ function RegistrationForm() {
         addUser(newUser);
         setFormData({ name: '', email: '', age: '', address: '', password: '', userRoleId: 2 });
         setAddUserStatus('success');
+        
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -63,12 +65,13 @@ function RegistrationForm() {
       <div className='row'>
         <div className='col-md-8'>
           <div className="register d-flex align-items-center justify-content-center">
-            <h3 className="display-6">CREATE A NEW USER ➡</h3>
+            <h3 className="display-6">Register Now to BussinesApp ➡</h3>
           </div>
         </div>
         <div className="col-md-4">
+        
           <div className="register-form">
-            {renderMessage()}
+            
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
                 <input
@@ -150,6 +153,7 @@ function RegistrationForm() {
               <button type="submit" className="btn btn-success w-100">Register</button>
             </form>
           </div>
+          {renderMessage()}
         </div>
 
       </div>
