@@ -66,7 +66,7 @@ function LoginForm({ setUserRole, setUser }) {
       <div className="row">
         <div className="col-md-8">
           <div className='login d-flex align-items-center justify-content-center'>
-            <h2 className="display-6">Login into the web ➡</h2>
+            <h2 className="display-6">Login into the BussinesApp ➡</h2>
           </div>
         </div>
         <div className='col-md-4'>
