@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../Footer/Footer';
 
 function AboutUs() {
   return (
@@ -15,7 +14,6 @@ function AboutUs() {
           </p>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }

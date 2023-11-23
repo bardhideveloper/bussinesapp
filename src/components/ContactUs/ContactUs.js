@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Footer from '../Footer/Footer'
+
 
 function ContactUs() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', });
@@ -65,7 +65,6 @@ function ContactUs() {
           </form>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }

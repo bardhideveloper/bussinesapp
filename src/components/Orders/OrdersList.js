@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios, { all } from 'axios';
 import OrderEditForm from './OrderEditForm';
-import Footer from '../Footer/Footer'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -222,7 +221,6 @@ function OrdersList() {
           </div>
         </div>
       </div>
-      <Footer/>
     </div>
   )
 }

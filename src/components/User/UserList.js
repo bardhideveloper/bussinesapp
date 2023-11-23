@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import UserForm from './UserForm';
 import UserEditForm from './UserEditForm';
-import Footer from '../Footer/Footer'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -264,7 +263,6 @@ function UserList() {
           <button className="page-link" onClick={() => paginate(currentPage + 1)}>Next</button>
         </li>
       </ul>
-      <Footer />
     </div>
   );
 }

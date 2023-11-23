@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MessageEditForm from './MessageEditForm';
-import Footer from '../Footer/Footer'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -199,7 +198,6 @@ function ContactUsList() {
           <button className="page-link" onClick={() => paginate(currentPage + 1)}>Next</button>
         </li>
       </ul>
-      <Footer />
     </div>
   )
 

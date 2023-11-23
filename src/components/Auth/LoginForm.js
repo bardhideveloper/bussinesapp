@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Footer from  '../Footer/Footer'
 
-function LoginForm({ setUserRole,setUser }) {
+import "./loginForm.scss";
+
+function LoginForm({ setUserRole, setUser }) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -36,7 +37,7 @@ function LoginForm({ setUserRole,setUser }) {
 
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(user));
-        
+
 
 
         if (user && user.role !== undefined) {
@@ -63,40 +64,45 @@ function LoginForm({ setUserRole,setUser }) {
   return (
     <div className="container mt-4">
       <div className="row">
-        <div className="col-md-4">
-          <h2 className="display-6">Login Form</h2>
-          {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <input
-                type="email"
-                className="form-control"
-                required
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                type="password"
-                className="form-control"
-                required
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <button type="submit" className="btn btn-success">Login</button>
-          </form>
+        <div className="col-md-8">
+          <div className='login d-flex align-items-center justify-content-center'>
+            <h2 className="display-6">Login into the web ➡</h2>
+          </div>
+        </div>
+        <div className='col-md-4'>
+          <div className="login-form">
+            {errorMessage && <div className="alert alert-danger mt-3">{errorMessage}</div>}
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <input
+                  type="email"
+                  className="form-control custom-input"
+                  required
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <input
+                  type="password"
+                  className="form-control custom-input"
+                  required
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button type="submit" className="btn btn-success w-100">Login</button>
+            </form>
+          </div>
         </div>
       </div>
-      <Footer/>
     </div>
   );
-  
+
 }
 
 export default LoginForm;

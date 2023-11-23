@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductForm from './ProductForm';
 import ProductEditForm from './ProductEditForm';
-import Footer from '../Footer/Footer'
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
@@ -234,7 +233,6 @@ function ProductList() {
           <button className="page-link" onClick={() => paginate(currentPage + 1)}>Next</button>
         </li>
       </ul>
-      <Footer />
     </div>
   );
 }

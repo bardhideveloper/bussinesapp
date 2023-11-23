@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import Footer from '../Footer/Footer'
 
 function Dashboard() {
   const [userCount, setUserCount] = useState(0);
@@ -382,7 +381,6 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <Footer/>
     </div>
   );
 }

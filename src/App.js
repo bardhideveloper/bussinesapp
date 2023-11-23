@@ -12,7 +12,6 @@ import RegistrationForm from './components/Auth/RegistrationForm';
 import LoginForm from './components/Auth/LoginForm';
 import DashboardUser from './components/Dashboard/DashboardUser';
 import ContactUsList from './components/ContactUs/ContactUsList';
-import Footer from './components/Footer/Footer';
 
 
 function App() {
@@ -69,7 +68,7 @@ function App() {
             {userRole === 2 && (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/userPanel/dashboardUser">User Dashboard</Link>
+                  <Link className="nav-link" to="/userPanel/dashboardUser">🏠 Dashboard</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/order-items">📦 Order Items</Link>
@@ -89,10 +88,10 @@ function App() {
             {userRole !== 1 && userRole !== 2 && (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/dashboardUser">🏠 User Dashboard</Link>
+                  <Link className="nav-link" to="/dashboardUser">🏠 Dashboard</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/registrationform">📝 Register Now</Link>
+                  <Link className="nav-link" to="/registrationform">📝 Register</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/loginform">🚪 Login</Link>
@@ -115,7 +114,6 @@ function App() {
               <Route path="orders" element={<OrdersList />} />
               <Route path="products" element={<ProductList />} />
               <Route path="contactus" element={<ContactUsList />} />
-              <Route path="footer" element={<Footer />} />
             </Route>
           )}
 
@@ -130,7 +128,6 @@ function App() {
           <Route path="/registrationform" element={<RegistrationForm />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contactUs" element={<ContactUs />} />
-          <Route path="footer" element={<Footer />} />
         </Routes>
       </div>
     </Router>

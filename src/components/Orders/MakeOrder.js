@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Footer from '../Footer/Footer'
+
 
 function MakeOrder({ user }) {
   const [products, setProducts] = useState([]);
@@ -241,7 +241,6 @@ function MakeOrder({ user }) {
           {renderStockMessage()}
         </div>
       </div>
-      <Footer />
     </div>
 
   );

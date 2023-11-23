@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Footer from '../Footer/Footer'
+
+import "./registerForm.scss";
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({ name: '', email: '', password: '', age: '', address: '', userRoleId: 2 });
@@ -60,71 +61,76 @@ function RegistrationForm() {
   return (
     <div className="container mt-4">
       <div className='row'>
-        <div className='col-md-4'>
-          <h2 className="display-6">Register Form</h2>
-          {renderMessage()}
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <input
-                type="text"
-                className="form-control"
-                required
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            </div>
+        <div className='col-md-8'>
+          <div className="register d-flex align-items-center justify-content-center">
+            <h3 className="display-6">CREATE A NEW USER ➡</h3>
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="register-form">
+            {renderMessage()}
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control custom-input"
+                  required
+                  name="name"
+                  placeholder="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <div className="mb-3">
-              <input
-                type="email"
-                className="form-control"
-                required
-                name="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
+              <div className="mb-3">
+                <input
+                  type="email"
+                  className="form-control custom-input"
+                  required
+                  name="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <div className="mb-3">
-              <input
-                type="password"
-                className="form-control"
-                required
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-              />
-            </div>
+              <div className="mb-3">
+                <input
+                  type="password"
+                  className="form-control custom-input"
+                  required
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <div className="mb-3">
-              <input
-                type="text"
-                className="form-control"
-                required
-                name="age"
-                placeholder="Age"
-                value={formData.age}
-                onChange={handleChange}
-              />
-            </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control custom-input"
+                  required
+                  name="age"
+                  placeholder="Age"
+                  value={formData.age}
+                  onChange={handleChange}
+                />
+              </div>
 
-            <div className="mb-3">
-              <input
-                type="text"
-                className="form-control"
-                required
-                name="address"
-                placeholder="Address"
-                value={formData.address}
-                onChange={handleChange}
-              />
-            </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control custom-input"
+                  required
+                  name="address"
+                  placeholder="Address"
+                  value={formData.address}
+                  onChange={handleChange}
+                />
+              </div>
 
-            {/* <div className="mb-3">
+              {/* <div className="mb-3">
               <select
                 className="form-control"
                 required
@@ -141,11 +147,12 @@ function RegistrationForm() {
               </select>
             </div> */}
 
-            <button type="submit" className="btn btn-success">Register</button>
-          </form>
+              <button type="submit" className="btn btn-success w-100">Register</button>
+            </form>
+          </div>
         </div>
+
       </div>
-      <Footer/>
     </div>
   );
 }
