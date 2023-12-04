@@ -17,3 +17,30 @@ code {
   bottom: 20px;
   left: 20px;
 }
+
+.admin-nav, .user-nav, .default-nav {
+  display: block;
+  margin-bottom: 20px; 
+}
+
+.nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-top: 10px;
+  margin-bottom: 10px; 
+}
+
+.nav-link {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-link:hover {
+  background-color: #eee;
+}
